@@ -39,7 +39,8 @@ export const Item = ({id, label, onClick, icon: Icon, documentIcon, active, isSe
 
     if(!id) return;
 
-    const promise = archive({ id });
+    const promise = archive({ id })
+      .then(() => router.push(`/documents`));
 
     toast.promise(promise, {
       loading: 'Moving to trash...',
@@ -65,7 +66,7 @@ export const Item = ({id, label, onClick, icon: Icon, documentIcon, active, isSe
         if(!expanded) {
           onExpand?.();
         }
-        //router.push(`/documents/${documentId}`);
+        router.push(`/documents/${documentId}`);
       });
 
     toast.promise(promise, {
@@ -88,7 +89,7 @@ export const Item = ({id, label, onClick, icon: Icon, documentIcon, active, isSe
         <div className='shrink-0 mr-2 text-[18px]'>
           {documentIcon}
         </div>
-      ) : (<Icon className="shrink-0 h-[18px] mr-2 text-muted-foreground"/>)}
+      ) : (<Icon className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground"/>)}
       <span className="truncate">{label}</span>
       {isSearch && (
         <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">

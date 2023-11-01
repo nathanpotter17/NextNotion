@@ -48,7 +48,7 @@ export const Title = ({
   }
 
   return (
-    <div>
+    <div className="flex justify-items-start">
       {!!initialData.icon && <p>{initialData.icon}</p>}
       {isEditing ? (
         <Input ref={inputRef} onClick={enableInput} onChange={onChange} onBlur={disableInput} value={title} onKeyDown={onKeyDown} className="h-7 px-2 focus-visible:ring-transparent" />

@@ -15,10 +15,10 @@ export const Heading = () => {
   return(
     <div className="mx-auto max-w-3xl space-y-4">
       <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold">
-        Your Ideas, Notes, & Plans Come To Life, Welcome to <span className="underline">NextNotion.</span>
+        Your Ideas Come To Life... Welcome to <span className="underline">NextNotion.</span>
       </h1>
       <h3 className="text-base sm:text-xl md:text-2xl font-medium">
-        Notion is the connected workspace where better, faster work happens.
+        NextNotion is the connected workspace where better, faster work happens.
       </h3>
       {isLoading && (
         <>

@@ -212,8 +212,7 @@ export const getById = query({
 
     if (!document) throw new Error("Not Found");
 
-    if (document.isPublished && !document.isArchived)
-      throw new Error("No Auth");
+    if (document.isPublished && !document.isArchived) return document;
 
     if (!identity) throw new Error("No Auth");
 
@@ -252,6 +251,52 @@ export const update = mutation({
     const document = await ctx.db.patch(args.id, {
       ...rest,
     });
+    return document;
+  },
+});
+
+export const removeIcon = mutation({
+  args: { id: v.id("documents") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("No Auth");
+
+    const userId = identity.subject;
+
+    const existingDocument = await ctx.db.get(args.id);
+
+    if (!existingDocument) throw new Error("Not Found");
+
+    if (existingDocument.userId !== userId) throw new Error("No Auth");
+
+    const document = await ctx.db.patch(args.id, {
+      icon: undefined,
+    });
+
+    return document;
+  },
+});
+
+export const removeCoverImage = mutation({
+  args: { id: v.id("documents") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("No Auth");
+
+    const userId = identity.subject;
+
+    const existingDocument = await ctx.db.get(args.id);
+
+    if (!existingDocument) throw new Error("Not Found");
+
+    if (existingDocument.userId !== userId) throw new Error("No Auth");
+
+    const document = await ctx.db.patch(args.id, {
+      coverImage: undefined,
+    });
+
     return document;
   },
 });
